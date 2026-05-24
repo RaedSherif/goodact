@@ -30,9 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['role'] = $user['user_type_id'];
 
             if ($user['user_type_id'] == 1) {
-                header("Location: ../views/admin_dashboard.php");
+                header("Location: ../views/userDashboard.php");
+            } elseif ($user['user_type_id'] == 2) {
+                header("Location: ../views/providerDashboard.php");
             } else {
-                header("Location: ../views/donor_dashboard.php");
+                header("Location: ../views/adminDashboard.php");
             }
             exit();
         } else {
