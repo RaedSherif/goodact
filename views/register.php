@@ -11,7 +11,7 @@
         <img src="../assets/logo.png" alt="Goodact Logo" class="brand-logo">
         <h2>Create an Account</h2>
         
-        <form action="../controllers/AuthController.php" method="POST">
+        <form action="../controllers/auth.php" method="POST">
             <input type="hidden" name="action" value="register">
             
             <input type="text" name="name" placeholder="Full Name" required> <br>

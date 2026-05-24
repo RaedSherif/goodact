@@ -11,7 +11,7 @@
         <img src="../assets/logo.png" alt="Goodact Logo" class="brand-logo">
         <h2>Login</h2>
         
-        <form action="../controllers/AuthController.php" method="POST">
+        <form action="../controllers/auth.php" method="POST">
             <input type="hidden" name="action" value="login">
             
             <input type="email" name="email" placeholder="Email Address" required><br>

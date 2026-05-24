@@ -1,7 +1,7 @@
 <?php
 
 require_once 'iAuth.php';
-require_once '/../../database/database.php';
+require_once __DIR__ . '/../../database/database.php';
 
 class login implements iAuth {
     public function execute($data) {
