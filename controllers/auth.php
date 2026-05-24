@@ -1,44 +1,37 @@
 <?php
 session_start();
-require_once '../models/auth/authManager.php';
-require_once '../models/auth/login.php';
-require_once '../models/auth/register.php';
+require_once '../models/AuthManager.php';
+require_once '../models/User.php';
+require_once '../utils/Logger.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if ($_POST['action'] == 'register') {
-        $manager = new AuthManager(new register());
+    $user    = new User();
+    $manager = new AuthManager($user, $_POST['action']);
+    $manager->attach(Logger::getInstance());
 
-        $success = $manager->process($_POST);
+    $result  = $manager->execute($_POST);
 
-        if ($success) {
+    if ($_POST['action'] == "register") {
+        if ($result) {
             header("Location: ../views/login.php");
-            exit();
         } else {
             echo "Registration failed.";
         }
-    }
-    }
+    } else if ($_POST['action'] == "login") {
+        if ($result) {
+            $_SESSION['user_id'] = $result['id'];
+            $_SESSION['role']    = $result['user_type_id'];
 
-    if ($_POST['action'] == 'login') {
-        $manager = new AuthManager(new login());
-
-        $user = $manager->process($_POST);
-
-        if ($user) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role'] = $user['user_type_id'];
-
-            if ($user['user_type_id'] == 1) {
+            if ($result['user_type_id'] == 1) {
                 header("Location: ../views/userDashboard.php");
-            } elseif ($user['user_type_id'] == 2) {
+            } elseif ($result['user_type_id'] == 2) {
                 header("Location: ../views/providerDashboard.php");
             } else {
                 header("Location: ../views/adminDashboard.php");
             }
-            exit();
         } else {
             echo "Wrong email or password.";
         }
     }
-?>
+}

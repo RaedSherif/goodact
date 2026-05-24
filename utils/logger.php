@@ -1,5 +1,6 @@
 <?php
-class Logger
+require_once __DIR__ . '/../interfaces/IObserver.php';
+class Logger implements IObserver
 {
     private static $instance = null;
     private $logFile;
@@ -27,5 +28,10 @@ class Logger
         $timestamp = date("Y-m-d H:i:s");
         $entry = "[$timestamp] [$level] $message" . PHP_EOL;
         file_put_contents($this->logFile, $entry, FILE_APPEND | LOCK_EX);
+    }
+
+    public function update($event, $data)
+    {
+        $this->log("INFO", "Event: $event | Data: $data");
     }
 }

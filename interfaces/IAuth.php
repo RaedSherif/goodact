@@ -1,5 +1,5 @@
 <?php
-interface iAuth {
+interface IAuth {
     public function execute($data);
 }
 ?>
