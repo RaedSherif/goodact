@@ -15,3 +15,30 @@ CREATE TABLE user (
 );
 
 INSERT INTO user_type (name) VALUES ('user'), ('provider'), ('admin');
+
+use defaultdb;
+
+CREATE TABLE menu (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    link VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE usertype_menu (
+    user_type_id INT NOT NULL,
+    menu_id INT NOT NULL,
+    PRIMARY KEY (user_type_id, menu_id),
+    FOREIGN KEY (user_type_id) REFERENCES user_type(id) ON DELETE CASCADE,
+    FOREIGN KEY (menu_id) REFERENCES menu(id) ON DELETE CASCADE
+);
+
+INSERT INTO menu (name, link) VALUES
+('Browse Listings', 'listings.php'),
+('My Orders', 'orders.php'),
+('Provider Dashboard', 'provider_dashboard.php'),
+('Manage Users', 'admin_users.php');
+
+
+INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (1, 1), (1, 2);
+INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (2, 3);
+INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (3, 4);
