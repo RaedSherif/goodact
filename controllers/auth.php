@@ -11,8 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $success = $manager->process($_POST);
 
-        if ($success) echo "Registered successfully! Go back and log in.";
-        else echo "Registration failed.";
+        if ($success) {
+            header("Location: ../views/login.php");
+            exit();
+        } else {
+            echo "Registration failed.";
+        }
+    }
     }
 
     if ($_POST['action'] == 'login') {
@@ -34,5 +39,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Wrong email or password.";
         }
     }
-}
 ?>
