@@ -81,5 +81,39 @@ class Listing {
         }
         return $listings;
     }
+
+    public function getAllListingsAdmin() {
+        $stmt1 = $this->db->prepare("SELECT * FROM listing ORDER BY id DESC");
+        $stmt1->execute();
+        $listings = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt2 = $this->db->prepare("SELECT id, user_name FROM user");
+        $stmt2->execute();
+        $users = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+        $finalListingsArray = array();
+
+        foreach ($listings as $listing) {
+            $providerName = "Unknown Provider";
+
+            foreach ($users as $user) {
+                if ($user['id'] == $listing['provider_id']) {
+                    $providerName = $user['user_name'];
+                }
+            }
+
+            $listing['provider_name'] = $providerName;
+
+            array_push($finalListingsArray, $listing);
+        }
+
+        return $finalListingsArray;
+    }
+
+    public function deleteListingAdmin($listing_id) {
+        $sql = "DELETE FROM listing WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$listing_id]);
+    }
 }
 ?>

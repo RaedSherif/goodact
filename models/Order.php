@@ -67,5 +67,51 @@ class Order {
 
         return $finalOrders;
     }
+
+    public function getAllOrdersAdmin() {
+        $stmt1 = $this->db->prepare("SELECT * FROM orders ORDER BY id DESC");
+        $stmt1->execute();
+        $orders = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt2 = $this->db->prepare("SELECT id, user_name FROM user");
+        $stmt2->execute();
+        $users = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt3 = $this->db->prepare("SELECT id, title FROM listing");
+        $stmt3->execute();
+        $listings = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+
+        $finalOrdersList = array();
+
+        foreach ($orders as $order) {
+            $buyerName = "Unknown Buyer";
+            $itemName = "Unknown Item";
+
+            foreach ($users as $user) {
+                if ($user['id'] == $order['buyer_id']) {
+                    $buyerName = $user['user_name'];
+                }
+            }
+
+            foreach ($listings as $listing) {
+                if ($listing['id'] == $order['listing_id']) {
+                    $itemName = $listing['title'];
+                }
+            }
+
+            $order['buyer_name'] = $buyerName;
+            $order['item_name'] = $itemName;
+
+            array_push($finalOrdersList, $order);
+        }
+
+        return $finalOrdersList;
+    }
+
+    public function deleteOrderAdmin($order_id) {
+        $sql = "DELETE FROM orders WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$order_id]);
+    }
 }
 ?>
