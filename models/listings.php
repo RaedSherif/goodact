@@ -50,7 +50,6 @@ class Listing {
     }
 
     public function updateListingTitle($listing_id, $provider_id, $title, $is_premium) {
-        // We ensure provider_id is checked so users can't edit someone else's listing
         $stmt = $this->db->prepare("UPDATE listing SET title = ?, is_premium = ? WHERE id = ? AND provider_id = ?");
         return $stmt->execute([$title, $is_premium, $listing_id, $provider_id]);
     }
@@ -58,6 +57,29 @@ class Listing {
     public function deleteListing($listing_id, $provider_id) {
         $stmt = $this->db->prepare("DELETE FROM listing WHERE id = ? AND provider_id = ?");
         return $stmt->execute([$listing_id, $provider_id]);
+    }
+
+    public function getAllListingsWithDetails() {
+        $stmt = $this->db->query("SELECT id, title, is_premium FROM listing");
+        $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($listings)) return [];
+
+        $attrStmt = $this->db->query("SELECT id, name FROM attribute");
+        $dictionary = $attrStmt->fetchAll(PDO::FETCH_KEY_PAIR); 
+
+        foreach ($listings as &$listing) {
+            $valStmt = $this->db->prepare("SELECT attribute_id, value FROM listing_value WHERE listing_id = ?");
+            $valStmt->execute([$listing['id']]);
+            $rawValues = $valStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $listing['traits'] = [];
+            foreach ($rawValues as $row) {
+                $attributeName = $dictionary[$row['attribute_id']] ?? 'Unknown';
+                $listing['traits'][$attributeName] = $row['value'];
+            }
+        }
+        return $listings;
     }
 }
 ?>

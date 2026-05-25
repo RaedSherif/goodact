@@ -85,3 +85,14 @@ INSERT INTO menu (name, link) VALUES ('Manage Listings', 'adminListings.php');
 
 INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (3, 8);
 INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (3, 9);
+
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    buyer_id INT NOT NULL,
+    listing_id INT NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (buyer_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (listing_id) REFERENCES listing(id) ON DELETE CASCADE
+);
+
+ALTER TABLE orders ADD COLUMN order_notes VARCHAR(255) DEFAULT '';
