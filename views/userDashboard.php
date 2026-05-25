@@ -1,14 +1,16 @@
 <?php
 session_start();
 
-if (($_SESSION['user_id'])!= 1) {
-    if (($_SESSION['user_id'])== 2) {
-        header("Location: providerDashboard.php");
-    } elseif (($_SESSION['user_id'])== 3) {
-        header("Location: adminDashboard.php");
-    } else {
-        header("Location: login.php");
-    }
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+if ($_SESSION['role'] == 2) {
+    header('Location: providerDashboard.php');
+    exit();
+} elseif ($_SESSION['role'] == 3) {
+    header('Location: adminDashboard.php');
     exit();
 }
 
