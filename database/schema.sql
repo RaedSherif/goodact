@@ -76,3 +76,12 @@ INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (2, 5);
 
 INSERT INTO menu (name, link) VALUES ('View User Orders', 'viewOrders-P.php');
 INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (2, 7);
+
+INSERT INTO user (user_name, email, password, user_type_id) 
+VALUES ('Anthony Edward', 'test@test.eg', '$2y$10$wOxsf1lDydrsQucby2/bke5CY7bBlhMclp.yfxXhdW1hewKVdUBam', 3);
+
+INSERT INTO menu (name, link) VALUES ('Manage Orders', 'adminOrders.php');
+INSERT INTO menu (name, link) VALUES ('Manage Listings', 'adminListings.php');
+
+INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (3, 8);
+INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (3, 9);
