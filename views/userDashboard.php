@@ -1,8 +1,14 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if (($_SESSION['user_id'])!= 1) {
+    if (($_SESSION['user_id'])== 2) {
+        header("Location: providerDashboard.php");
+    } elseif (($_SESSION['user_id'])== 3) {
+        header("Location: adminDashboard.php");
+    } else {
+        header("Location: login.php");
+    }
     exit();
 }
 
