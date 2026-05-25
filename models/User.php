@@ -43,4 +43,10 @@ class User
         }
         return false;
     }
+
+    public function getUserById($id) {
+        $stmt = $this->db->prepare("SELECT user_name, email, user_type_id FROM user WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

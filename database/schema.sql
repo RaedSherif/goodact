@@ -42,3 +42,37 @@ INSERT INTO menu (name, link) VALUES
 INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (1, 1), (1, 2);
 INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (2, 3);
 INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (3, 4);
+
+CREATE TABLE listing (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    provider_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    is_premium BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (provider_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE attribute (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE listing_value (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    listing_id INT NOT NULL,
+    attribute_id INT NOT NULL,
+    value VARCHAR(255) NOT NULL,
+    FOREIGN KEY (listing_id) REFERENCES listing(id) ON DELETE CASCADE,
+    FOREIGN KEY (attribute_id) REFERENCES attribute(id) ON DELETE CASCADE
+);
+
+INSERT INTO menu (name, link) VALUES ('Add Listing', 'addListing.php');
+INSERT INTO menu (name, link) VALUES ('My Listings', 'viewListings.php');
+
+
+DELETE FROM usertype_menu WHERE user_type_id = 2;
+
+INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (2, 5); 
+
+
+INSERT INTO menu (name, link) VALUES ('View User Orders', 'viewOrders-P.php');
+INSERT INTO usertype_menu (user_type_id, menu_id) VALUES (2, 7);
