@@ -38,5 +38,34 @@ class Order {
         $stmt = $this->db->prepare("DELETE FROM orders WHERE id = ? AND buyer_id = ?");
         return $stmt->execute([$order_id, $buyer_id]);
     }
+
+    public function getOrdersForProvider($provider_id) {
+        $finalOrders = [];
+
+        $stmt1 = $this->db->prepare("SELECT id, title FROM listing WHERE provider_id = ?");
+        $stmt1->execute([$provider_id]);
+        $myListings = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($myListings as $listing) {
+            
+            $stmt2 = $this->db->prepare("SELECT buyer_id FROM orders WHERE listing_id = ?");
+            $stmt2->execute([$listing['id']]);
+            $ordersForThisItem = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($ordersForThisItem as $order) {
+                
+                $stmt3 = $this->db->prepare("SELECT user_name FROM user WHERE id = ?");
+                $stmt3->execute([$order['buyer_id']]);
+                $buyer = $stmt3->fetch(PDO::FETCH_ASSOC);
+
+                $finalOrders[] = [
+                    'item_name' => $listing['title'],
+                    'buyer_name' => $buyer['user_name']
+                ];
+            }
+        }
+
+        return $finalOrders;
+    }
 }
 ?>
