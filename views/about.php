@@ -28,7 +28,7 @@
             <p>Goodact is engineered for scale. Built on a strict Model-View-Controller (MVC) architecture, our database leverages an Entity-Attribute-Value (EAV) design pattern, allowing for infinite customization of marketplace listings without compromising backend integrity.</p>
         </div>
 
-        <a href="../index.php" style="border: none; display: inline-block; margin-top: 10px;">
+        <a href="index.php" style="border: none; display: inline-block; margin-top: 10px;">
             <button type="button" style="background: transparent; border: 1px solid white; color: white;">← Back to Home</button>
         </a>
     </div>
