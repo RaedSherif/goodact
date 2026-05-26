@@ -1,18 +1,16 @@
 {
-  "builds": [
-    {
-      "src": "**/*.php",
-      "use": "vercel-php@0.6.2"
+  "functions": {
+    "**/*.php": {
+      "runtime": "vercel-php@0.6.2"
     }
-  ],
+  },
   "routes": [
-    { 
-      "src": "/", 
-      "dest": "/index.php" 
-    },
-    { 
-      "src": "/(.*)", 
-      "dest": "/$1" 
-    }
+    { "src": "/css/(.*)", "dest": "/css/$1" },
+    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/views/(.*)", "dest": "/views/$1" },
+    { "src": "/controllers/(.*)", "dest": "/controllers/$1" },
+    { "src": "/models/(.*)", "dest": "/models/$1" },
+    { "src": "/", "dest": "/index.php" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
