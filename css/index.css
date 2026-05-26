@@ -1,0 +1,28 @@
+        .hero-text {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .btn-primary {
+            background: #ffffff;
+            color: #001f3f;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+        .btn-about {
+            background: rgba(0, 0, 0, 0.3);
+            color: lightblue;
+        }

@@ -1,0 +1,18 @@
+        .about-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .about-section h3 {
+            color: lightblue;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .about-section p {
+            margin-top: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
