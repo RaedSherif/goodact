@@ -50,7 +50,7 @@ class User
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // --- ADMIN CRUD FUNCTIONS (Beginner Style) ---
+    // --- ADMIN CRUD FUNCTIONS ---
 
     public function getAllUsers() {
         $stmt1 = $this->db->prepare("SELECT * FROM user ORDER BY id DESC");

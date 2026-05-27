@@ -20,7 +20,9 @@ if (!isset($_GET['id'])) {
 <body>
     <div class="container">
         <h2>Update Order Note</h2>
-        <p style="margin-top: 0; margin-bottom: 20px; font-size: 13px;">Add special instructions for the provider regarding Order #<?php echo htmlspecialchars($_GET['id']); ?>.</p>
+        <p style="margin-top: 0; margin-bottom: 20px; font-size: 13px;">
+            Add special instructions for the provider regarding Order #<?php echo htmlspecialchars($_GET['id']); ?>.
+        </p>
         
         <form action="../controllers/order_controller.php" method="POST">
             <input type="hidden" name="action" value="update_note">

@@ -44,7 +44,11 @@ $allUsers = $userModel->getAllUsers();
 
         <h3>All Registered Users</h3>
         <br>
-        <table border="1" width="100%" cellpadding="10" style="border-collapse: collapse; text-align: left; background: rgba(0,0,0,0.3); color: white;">
+        <table border="1" width="100%" cellpadding="10" style="
+                                                border-collapse: collapse;
+                                                text-align: left; background:
+                                                rgba(0,0,0,0.3);
+                                                color: white;">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
