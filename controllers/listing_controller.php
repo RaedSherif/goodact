@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../models/Listing.php';
+require_once __DIR__ . '/../models/listings.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../views/login.php");

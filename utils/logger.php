@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../interfaces/IObserver.php';
+
+# Both Structural Design Pattern: Singleton and Behavioral Design Pattern: Observer
 class Logger implements IObserver
 {
     private static $instance = null;

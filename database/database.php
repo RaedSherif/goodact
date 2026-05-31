@@ -1,4 +1,6 @@
 <?php
+
+# Structural Design Pattern: Singleton
 class DB {
     private static $instance = null;
     private PDO $conn;
