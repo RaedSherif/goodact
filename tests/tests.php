@@ -13,7 +13,8 @@ require_once __DIR__ . '/../models/BaseMenu.php';
 $passed = 0;
 $failed = 0;
 
-function check($label, $condition) {
+function check(string $label, bool $condition): void
+{
     global $passed, $failed;
     if ($condition) {
         echo "[PASS] $label\n";

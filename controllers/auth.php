@@ -6,8 +6,32 @@ require_once '../utils/Logger.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    $action = $_POST['action'];
+
+    if ($action == "register") {
+        if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password'])) {
+            echo "All fields are required.";
+            exit();
+        }
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            echo "Invalid email format.";
+            exit();
+        }
+    }
+
+    if ($action == "login") {
+        if (empty($_POST['email']) || empty($_POST['password'])) {
+            echo "Email and password are required.";
+            exit();
+        }
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            echo "Invalid email format.";
+            exit();
+        }
+    }
+
     $user    = new User();
-    $manager = new AuthManager($user, $_POST['action']);
+    $manager = new AuthManager($user, $action);
     $manager->attach(Logger::getInstance());
 
     $result  = $manager->execute($_POST);

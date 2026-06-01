@@ -13,10 +13,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'];
 
     if ($action == "buy") {
-        $notes = isset($_POST['order_notes']) ? trim($_POST['order_notes']) : '';
+        if (empty($_POST['listing_id']) || !is_numeric($_POST['listing_id'])) {
+            echo "Invalid listing.";
+            exit();
+        }
+
+        $notes = '';
+        if (isset($_POST['order_notes'])) {
+            $notes = trim($_POST['order_notes']);
+        }
+
         $orderModel->placeOrder($buyer_id, $_POST['listing_id'], $notes);
-    } 
+    }
     elseif ($action == "update_note") {
+        if (strlen($_POST['order_notes']) > 255) {
+            echo "Note cannot exceed 255 characters.";
+            exit();
+        }
+
         $orderModel->updateOrderNote($_POST['order_id'], $buyer_id, $_POST['order_notes']);
     } 
     elseif ($action == "cancel") {

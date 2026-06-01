@@ -8,16 +8,36 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $listing = new Listing();
+    $listing     = new Listing();
     $provider_id = $_SESSION['user_id'];
-    $action = $_POST['action'];
+    $action      = $_POST['action'];
 
     if ($action == "create") {
-        $is_premium = isset($_POST['is_premium']) ? 1 : 0;
+        if (empty($_POST['title'])) {
+            echo "Listing title is required.";
+            exit();
+        }
+
+        if (isset($_POST['is_premium'])) {
+            $is_premium = 1;
+        } else {
+            $is_premium = 0;
+        }
+
         $listing->createWithEAV($provider_id, $_POST['title'], $_POST['trait_name'], $_POST['trait_value'], $is_premium);
-    } 
+    }
     elseif ($action == "update") {
-        $is_premium = isset($_POST['is_premium']) ? 1 : 0;
+        if (empty($_POST['title'])) {
+            echo "Listing title is required.";
+            exit();
+        }
+
+        if (isset($_POST['is_premium'])) {
+            $is_premium = 1;
+        } else {
+            $is_premium = 0;
+        }
+
         $listing->updateListingTitle($_POST['listing_id'], $provider_id, $_POST['title'], $is_premium);
     } 
     elseif ($action == "delete") {
