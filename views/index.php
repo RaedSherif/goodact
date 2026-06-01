@@ -1,6 +1,6 @@
 <?php
 session_start();
-// If they are already logged in, skip the landing page and send them to their dashboard
+#If they are already logged in, skip the landing page and send them to their dashboard
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] == 1) header("Location: views/userDashboard.php");
     elseif ($_SESSION['role'] == 2) header("Location: views/providerDashboard.php");

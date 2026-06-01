@@ -14,13 +14,13 @@
         <mxCell id="lblAuth" value="Authentication (shared)" style="text;html=1;align=left;fontStyle=2;fontSize=12;fontColor=#000000" vertex="1" parent="1">
           <mxGeometry x="200" y="50" width="220" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="lblUser" value="User (Buyer) — role=1" style="text;html=1;align=left;fontStyle=2;fontSize=12;fontColor=#000000" vertex="1" parent="1">
+        <mxCell id="lblUser" value="User (Buyer) - role=1" style="text;html=1;align=left;fontStyle=2;fontSize=12;fontColor=#000000" vertex="1" parent="1">
           <mxGeometry x="200" y="260" width="260" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="lblProv" value="Provider — role=2" style="text;html=1;align=left;fontStyle=2;fontSize=12;fontColor=#000000" vertex="1" parent="1">
+        <mxCell id="lblProv" value="Provider - role=2" style="text;html=1;align=left;fontStyle=2;fontSize=12;fontColor=#000000" vertex="1" parent="1">
           <mxGeometry x="200" y="700" width="260" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="lblAdmin" value="Admin — role=3" style="text;html=1;align=left;fontStyle=2;fontSize=12;fontColor=#000000" vertex="1" parent="1">
+        <mxCell id="lblAdmin" value="Admin - role=3" style="text;html=1;align=left;fontStyle=2;fontSize=12;fontColor=#000000" vertex="1" parent="1">
           <mxGeometry x="200" y="1180" width="260" height="20" as="geometry" />
         </mxCell>
 

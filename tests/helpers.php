@@ -1,9 +1,7 @@
 <?php
-if (!isset($GLOBALS['passed'])) {
-    $GLOBALS['passed'] = 0;
- 
-    $GLOBALS['failed'] = 0;
-}
+
+$GLOBALS['passed'] = 0;
+$GLOBALS['failed'] = 0;
 
 function check(string $label, bool $condition): void
 {

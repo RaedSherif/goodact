@@ -11,7 +11,7 @@ class Logger implements IObserver
     {
         $this->logFile = __DIR__ . "/../logs/app.log";
 
-        // create the logs folder if it doesn't exist
+        # create the logs folder if it doesn't exist
         if (!is_dir(dirname($this->logFile))) {
             mkdir(dirname($this->logFile), 0755, true);
         }
