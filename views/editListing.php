@@ -31,9 +31,9 @@ if (!isset($_GET['id'])) {
         
         <form action="../controllers/listing_controller.php" method="POST">
             <input type="hidden" name="action" value="update">
-            <input type="hidden" name="listing_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
-            
-            <input type="text" name="title" value="<?php echo htmlspecialchars($_GET['title'] ?? ''); ?>" required>
+            <input type="hidden" name="listing_id" value="<?php echo $_GET['id']; ?>">
+
+            <input type="text" name="title" value="<?php echo $_GET['title'] ?? ''; ?>" required>
             
             <label style="display: block; text-align: left; margin: 15px 0 5px 0; font-size: 14px; cursor: pointer; color: white;">
                 <input type="checkbox" name="is_premium" value="1" style="width: auto; margin-right: 8px;"> 

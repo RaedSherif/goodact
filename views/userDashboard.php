@@ -39,8 +39,8 @@ $navigationLinks = $dynamicMenu->getMenuItems();
         
         <div class="sidebar">
             <?php foreach ($navigationLinks as $link): ?>
-                <a href="<?php echo htmlspecialchars($link['link']); ?>">
-                    <?php echo htmlspecialchars($link['name']); ?>
+                <a href="<?php echo $link['link']; ?>">
+                    <?php echo $link['name']; ?>
                 </a>
             <?php endforeach; ?>
         </div>

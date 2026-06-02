@@ -33,12 +33,12 @@ $roleText = $roleMapping[$userData['user_type_id']] ?? 'Unknown Role';
         <div class="profile-card">
             <div class="profile-row">
                 <span class="profile-label">Full Name</span>
-                <span class="profile-value"><?php echo htmlspecialchars($userData['user_name']); ?></span>
+                <span class="profile-value"><?php echo $userData['user_name']; ?></span>
             </div>
             
             <div class="profile-row">
                 <span class="profile-label">Email Address</span>
-                <span class="profile-value"><?php echo htmlspecialchars($userData['email']); ?></span>
+                <span class="profile-value"><?php echo $userData['email']; ?></span>
             </div>
             
             <div class="profile-row">

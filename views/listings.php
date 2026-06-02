@@ -47,7 +47,7 @@ $marketplaceListings = $sorter->sortData($marketplaceListings);
                         
                         <div>
                             <?php foreach ($row['traits'] as $key => $value): ?>
-                                <span class="trait-pill"><?php echo htmlspecialchars($key) . ": " . htmlspecialchars($value); ?></span>
+                                <span class="trait-pill"><?php echo $key . ": " . $value; ?></span>
                             <?php endforeach; ?>
                         </div>
 

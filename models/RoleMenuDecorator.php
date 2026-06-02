@@ -20,17 +20,13 @@ class RoleMenuDecorator implements IMenu {
         $stmt1->execute([$this->roleId]);
         $menuIds = $stmt1->fetchAll(PDO::FETCH_COLUMN);
 
-        $roleItems = [];
-        
-        if (!empty($menuIds)) {
-            
-            $placeholders = str_repeat('?,', count($menuIds) - 1) . '?';
-            
-            $stmt2 = $db->prepare("
+        $placeholders = implode(',', array_fill(0, count($menuIds), '?'));
+
+        $stmt2 = $db->prepare("
                 SELECT name, link FROM menu WHERE id IN ($placeholders)");
             $stmt2->execute($menuIds);
             $roleItems = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        }
+
 
         return array_merge($roleItems, $items);
     }

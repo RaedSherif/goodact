@@ -28,7 +28,7 @@ $myOrders = $orderModel->getOrdersByBuyer($_SESSION['user_id']);
             <?php else: ?>
                 <?php foreach ($myOrders as $order): ?>
                     <div class="order-box">
-                        <strong style="font-size: 18px;"><?php echo htmlspecialchars($order['listing_title']); ?></strong>
+                        <strong style="font-size: 18px;"><?php echo $order['listing_title']; ?></strong>
                         
                         <div class="order-meta">
                             Order ID: #<?php echo $order['id']; ?> | Placed: <?php echo date("F j, Y", strtotime($order['order_date'])); ?>
@@ -36,7 +36,7 @@ $myOrders = $orderModel->getOrdersByBuyer($_SESSION['user_id']);
 
                         <?php if (!empty($order['order_notes'])): ?>
                             <div class="order-note">
-                                <strong>Note:</strong> <?php echo htmlspecialchars($order['order_notes']); ?>
+                                <strong>Note:</strong> <?php echo $order['order_notes']; ?>
                             </div>
                         <?php endif; ?>
 

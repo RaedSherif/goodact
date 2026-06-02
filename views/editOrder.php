@@ -21,14 +21,14 @@ if (!isset($_GET['id'])) {
     <div class="container">
         <h2>Update Order Note</h2>
         <p style="margin-top: 0; margin-bottom: 20px; font-size: 13px;">
-            Add special instructions for the provider regarding Order #<?php echo htmlspecialchars($_GET['id']); ?>.
+            Add special instructions for the provider regarding Order #<?php echo $_GET['id']; ?>.
         </p>
         
         <form action="../controllers/order_controller.php" method="POST">
             <input type="hidden" name="action" value="update_note">
-            <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
-            
-            <input type="text" name="order_notes" value="<?php echo htmlspecialchars($_GET['note'] ?? ''); ?>" placeholder="E.g., Please leave at the front desk..." required>
+            <input type="hidden" name="order_id" value="<?php echo $_GET['id']; ?>">
+
+            <input type="text" name="order_notes" value="<?php echo $_GET['note'] ?? ''; ?>" placeholder="E.g., Please leave at the front desk..." required>
             
             <button type="submit">Save Note</button>
         </form>
