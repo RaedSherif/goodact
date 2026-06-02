@@ -26,7 +26,7 @@ class Listing {
     }
 
     public function getListingsByProviderWithDetails($provider_id) {
-        $stmt = $this->db->prepare("SELECT id, title, is_premium FROM listing WHERE provider_id = ?");
+        $stmt = $this->db->prepare("SELECT id, title, is_premium FROM listing WHERE provider_id = ? AND is_deleted = 0");
         $stmt->execute([$provider_id]);
         $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -55,12 +55,12 @@ class Listing {
     }
 
     public function deleteListing($listing_id, $provider_id) {
-        $stmt = $this->db->prepare("DELETE FROM listing WHERE id = ? AND provider_id = ?");
+        $stmt = $this->db->prepare("UPDATE listing SET is_deleted = 1 WHERE id = ? AND provider_id = ?");
         return $stmt->execute([$listing_id, $provider_id]);
     }
 
     public function getAllListingsWithDetails() {
-        $stmt = $this->db->query("SELECT id, title, is_premium FROM listing");
+        $stmt = $this->db->query("SELECT id, title, is_premium FROM listing WHERE is_deleted = 0");
         $listings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (empty($listings)) return [];
@@ -83,7 +83,7 @@ class Listing {
     }
 
     public function getAllListingsAdmin() {
-        $stmt1 = $this->db->prepare("SELECT * FROM listing ORDER BY id DESC");
+        $stmt1 = $this->db->prepare("SELECT * FROM listing WHERE is_deleted = 0 ORDER BY id DESC");
         $stmt1->execute();
         $listings = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
@@ -111,7 +111,7 @@ class Listing {
     }
 
     public function deleteListingAdmin($listing_id) {
-        $sql = "DELETE FROM listing WHERE id = ?";
+        $sql = "UPDATE listing SET is_deleted = 1 WHERE id = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$listing_id]);
     }

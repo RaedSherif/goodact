@@ -14,7 +14,7 @@ class Order {
     }
 
     public function getOrdersByBuyer($buyer_id) {
-        $stmt = $this->db->prepare("SELECT id, listing_id, order_notes, order_date FROM orders WHERE buyer_id = ? ORDER BY order_date DESC");
+        $stmt = $this->db->prepare("SELECT id, listing_id, order_notes, order_date FROM orders WHERE buyer_id = ? AND is_deleted = 0 ORDER BY order_date DESC");
         $stmt->execute([$buyer_id]);
         $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -30,12 +30,12 @@ class Order {
     }
 
     public function updateOrderNote($order_id, $buyer_id, $notes) {
-        $stmt = $this->db->prepare("UPDATE orders SET order_notes = ? WHERE id = ? AND buyer_id = ?");
+        $stmt = $this->db->prepare("UPDATE orders SET order_notes = ? WHERE id = ? AND buyer_id = ? AND is_deleted = 0");
         return $stmt->execute([$notes, $order_id, $buyer_id]);
     }
 
     public function cancelOrder($order_id, $buyer_id) {
-        $stmt = $this->db->prepare("DELETE FROM orders WHERE id = ? AND buyer_id = ?");
+        $stmt = $this->db->prepare("UPDATE orders SET is_deleted = 1 WHERE id = ? AND buyer_id = ?");
         return $stmt->execute([$order_id, $buyer_id]);
     }
 
@@ -48,7 +48,7 @@ class Order {
 
         foreach ($myListings as $listing) {
             
-            $stmt2 = $this->db->prepare("SELECT buyer_id FROM orders WHERE listing_id = ?");
+            $stmt2 = $this->db->prepare("SELECT buyer_id FROM orders WHERE listing_id = ? AND is_deleted = 0");
             $stmt2->execute([$listing['id']]);
             $ordersForThisItem = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
@@ -69,7 +69,7 @@ class Order {
     }
 
     public function getAllOrdersAdmin() {
-        $stmt1 = $this->db->prepare("SELECT * FROM orders ORDER BY id DESC");
+        $stmt1 = $this->db->prepare("SELECT * FROM orders WHERE is_deleted = 0 ORDER BY id DESC");
         $stmt1->execute();
         $orders = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
@@ -109,7 +109,7 @@ class Order {
     }
 
     public function deleteOrderAdmin($order_id) {
-        $sql = "DELETE FROM orders WHERE id = ?";
+        $sql = "UPDATE orders SET is_deleted = 1 WHERE id = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$order_id]);
     }

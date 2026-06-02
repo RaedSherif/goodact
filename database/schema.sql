@@ -95,4 +95,17 @@ CREATE TABLE orders (
     FOREIGN KEY (listing_id) REFERENCES listing(id) ON DELETE CASCADE
 );
 
-ALTER TABLE orders ADD COLUMN order_notes VARCHAR(255) DEFAULT '';
+ALTER TABLE orders ADD COLUMN order_notes VARCHAR(255) NOT NULL DEFAULT '';
+
+# Rule 4: explicit NOT NULL on is_premium
+ALTER TABLE listing MODIFY COLUMN is_premium BOOLEAN NOT NULL DEFAULT 0;
+
+# Rule 12: soft delete — never physically remove records
+ALTER TABLE user    ADD COLUMN is_deleted BOOLEAN NOT NULL DEFAULT 0;
+ALTER TABLE listing ADD COLUMN is_deleted BOOLEAN NOT NULL DEFAULT 0;
+ALTER TABLE orders  ADD COLUMN is_deleted BOOLEAN NOT NULL DEFAULT 0;
+
+# Rule 1: every table needs an auto-increment id
+ALTER TABLE usertype_menu DROP PRIMARY KEY;
+ALTER TABLE usertype_menu ADD COLUMN id INT AUTO_INCREMENT PRIMARY KEY FIRST;
+ALTER TABLE usertype_menu ADD UNIQUE KEY uq_role_menu (user_type_id, menu_id);

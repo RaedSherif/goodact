@@ -12,7 +12,7 @@ class User
 
     public function register($data)
     {
-        $check = $this->db->prepare("SELECT id FROM user WHERE email = ?");
+        $check = $this->db->prepare("SELECT id FROM user WHERE email = ? AND is_deleted = 0");
         $check->execute([$data['email']]);
 
         if ($check->fetch()) {
@@ -34,7 +34,7 @@ class User
 
     public function login($data)
     {
-        $stmt = $this->db->prepare("SELECT * FROM user WHERE email = ?");
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE email = ? AND is_deleted = 0");
         $stmt->execute([$data['email']]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -45,7 +45,7 @@ class User
     }
 
     public function getUserById($id) {
-        $stmt = $this->db->prepare("SELECT user_name, email, user_type_id FROM user WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT user_name, email, user_type_id FROM user WHERE id = ? AND is_deleted = 0");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -53,7 +53,7 @@ class User
     // --- ADMIN CRUD FUNCTIONS ---
 
     public function getAllUsers() {
-        $stmt1 = $this->db->prepare("SELECT * FROM user ORDER BY id DESC");
+        $stmt1 = $this->db->prepare("SELECT * FROM user WHERE is_deleted = 0 ORDER BY id DESC");
         $stmt1->execute();
         $users = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
@@ -87,7 +87,7 @@ class User
     }
 
     public function deleteUser($id) {
-        $sql = "DELETE FROM user WHERE id = ?";
+        $sql = "UPDATE user SET is_deleted = 1 WHERE id = ?";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([$id]);
     }
